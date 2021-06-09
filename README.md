@@ -1,4 +1,4 @@
-# aade-mydata-rest-client
+# aade-mydata-client
 Node.js Client for AADE myDATA REST API
 
 ## Features
@@ -9,12 +9,12 @@ Node.js Client for AADE myDATA REST API
 ✅ Compatible with myDATA REST API v1.0.2<br />
 
 ## Installation
-    npm install -S aade-mydata-rest-client
+    npm install -S aade-mydata-client
 
 
 ## Usage
    ```ts
-import { AADEmyDataClient } from 'aade-mydata-rest-client';
+import { AADEmyDataClient } from 'aade-mydata-client';
 
 class YourClass {
 
