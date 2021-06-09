@@ -3,10 +3,10 @@ Node.js Client for AADE myDATA REST API
 
 ## Features
 
-✅ HTTP requests to AADE myDATA REST API <br />
-✅ XML to JSON conversion (currently their API only supports XML data in responses)<br />
-✅ Javascript/Typescript support<br />
-✅ Compatible with myDATA REST API v1.0.2<br />
+✅ &nbsp;&nbsp;HTTP requests to AADE myDATA REST API <br />
+✅ &nbsp;&nbsp;XML to JSON conversion (currently their API only supports XML data in responses)<br />
+✅ &nbsp;&nbsp;Javascript/Typescript support<br />
+✅ &nbsp;&nbsp;Compatible with myDATA REST API v1.0.2<br />
 
 ## Installation
     npm install -S aade-mydata-client
