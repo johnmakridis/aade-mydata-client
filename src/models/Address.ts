@@ -1,13 +1,25 @@
 
-export class Address {
+export class AddressType {
+
+    /** Οδός */
+    public street?: string;
+
+    /** Αριθμός */
     public number?: string;
+
+    /**  Ταχυδρομικός Κώδικας */
     public postalCode: string;
 
-    public constructor(props?: Address) {
+    /** Χώρα */
+    public city: string;
+
+    public constructor(props?: AddressType) {
 
         if (props) {
+            this.street = props.number;
             this.number = props.number;
             this.postalCode = props.postalCode;
+            this.city = props.city;
         }
 
     }

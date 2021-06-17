@@ -1,9 +1,9 @@
 
-export class TaxTotals {
+export class TaxTotalsType {
     public underlyingValue?: number;
     public id?: number;
 
-    public constructor(props?: TaxTotals) {
+    public constructor(props?: TaxTotalsType) {
 
         if (props) {
 

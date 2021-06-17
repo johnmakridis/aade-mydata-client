@@ -1,10 +1,10 @@
 
-export class Ship {
+export class ShipType {
     public applicationId: string;
     public applicationDate: Date;
     public shipId: string;
 
-    public constructor(props?: Ship) {
+    public constructor(props?: ShipType) {
 
         if (props) {
 

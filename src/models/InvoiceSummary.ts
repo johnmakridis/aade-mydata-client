@@ -1,20 +1,40 @@
-import { ExpensesClassification } from './ExpensesClassification';
-import { IncomeClassification } from './IncomeClassification';
+import { ExpensesClassificationType } from './ExpensesClassification';
+import { IncomeClassificationType } from './IncomeClassification';
 
 
-export class InvoiceSummary {
+export class InvoiceSummaryType {
+
+    /** Σύνολο Καθαρής Αξίας */
     public totalNetValue: number;
-    public totalVatAmount: number;
-    public totalWithheldAmount: number;
-    public totalFeesAmount: number;
-    public totalStampDutyAmount: number;
-    public totalOtherTaxesAmount: number;
-    public totalDeductionsAmount: number;
-    public totalGrossValue: number;
-    public incomeClassification?: IncomeClassification[];
-    public expensesClassification?: ExpensesClassification[];
 
-    public constructor(props?: InvoiceSummary) {
+    /** Σύνολο ΦΠΑ  */
+    public totalVatAmount: number;
+
+    /** Σύνολο Παρακρατήσεων Φόρων */
+    public totalWithheldAmount: number;
+
+    /** Σύνολο Τελών  */
+    public totalFeesAmount: number;
+
+    /** Σύνολο Χαρτοσήμου  */
+    public totalStampDutyAmount: number;
+
+    /** Σύνολο Λοιπών Φόρων */
+    public totalOtherTaxesAmount: number;
+
+    /** Σύνολο Κρατήσεων */
+    public totalDeductionsAmount: number;
+
+    /** Συνολική Αξία */
+    public totalGrossValue: number;
+
+    /** Χαρακτηρισμοί Εσόδων */
+    public incomeClassification?: IncomeClassificationType[];
+
+    /** Χαρακτηρισμοί Εξόδων */
+    public expensesClassification?: ExpensesClassificationType[];
+
+    public constructor(props?: InvoiceSummaryType) {
 
         if (props) {
 

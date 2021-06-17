@@ -1,18 +1,19 @@
-export { Address } from './Address';
+export { AddressType } from './Address';
+export { Country } from './Country';
 export { CancelledInvoice } from './CancelledInvoice';
-export { ExpensesClassification } from './ExpensesClassification';
-export { IncomeClassification } from './IncomeClassification';
-export { Invoice } from './Invoice';
+export { ExpensesClassificationType } from './ExpensesClassification';
+export { IncomeClassificationType } from './IncomeClassification';
+export { AadeBookInvoiceType } from './Invoice';
 export { InvoiceExpensesClassification } from './InvoiceExpensesClassification';
-export { InvoiceHeader } from './InvoiceHeader';
+export { InvoiceHeaderType } from './InvoiceHeader';
 export { InvoiceIncomeClassification } from './InvoiceIncomeClassification';
-export { InvoiceRow } from './InvoiceRow';
+export { InvoiceRowType } from './InvoiceRow';
 export { InvoicesExpensesClassificationDetail } from './InvoicesExpensesClassificationDetail';
-export { InvoiceSummary } from './InvoiceSummary';
+export { InvoiceSummaryType } from './InvoiceSummary';
 export { PartyType } from './PartyType';
-export { PaymentMethodDetail } from './PaymentMethodDetail';
-export { Ship } from './Ship';
-export { TaxTotals } from './TaxTotals';
+export { PaymentMethodDetailType } from './PaymentMethodDetail';
+export { ShipType } from './Ship';
+export { TaxTotalsType } from './TaxTotals';
 export {
     QueryResponse,
     ContinuationToken,

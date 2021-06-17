@@ -24,7 +24,8 @@ class YourClass {
 
         this.myDataClient = new AADEmyDataClient({
             userId: 'YOUR_USER_ID',
-            subscriptionKey: 'YOUR_SUBSCRIPTION_KEY'
+            subscriptionKey: 'YOUR_SUBSCRIPTION_KEY',
+            livemode: false // true for production API requests
         });
 
     }

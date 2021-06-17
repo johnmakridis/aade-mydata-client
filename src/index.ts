@@ -1,7 +1,8 @@
-import { AADEmyDataClientConfig, QueryResponse, Invoice, RequestDocsParams } from './models';
+import { AADEmyDataClientConfig, QueryResponse, SubmissionResponse, AadeBookInvoiceType, RequestDocsParams } from './models';
 import axios, { AxiosError } from 'axios';
 import { join } from 'path';
 import * as xsdSchemaValidator from 'xsd-schema-validator';
+import * as xmlJS from 'xml-js';
 
 
 // tslint:disable:variable-name
@@ -10,9 +11,9 @@ const Jsonix = require('jsonix');
 const requestDocMapping = require('./xsd/mappings/requestDoc.js').requestDoc;
 const expensesClassificationMapping = require('./xsd/mappings/expensesClassification.js').expensesClassification;
 const incomeClassificationMapping = require('./xsd/mappings/incomeClassification.js').incomeClassification;
-const InvoicesDocMapping = require('./xsd/mappings/InvoicesDoc.js').InvoicesDoc;
+const invoicesDocMapping = require('./xsd/mappings/InvoicesDoc.js').InvoicesDoc;
 const requestedInvoicesDocMapping = require('./xsd/mappings/requestedInvoicesDoc.js').requestedInvoicesDoc;
-const RequestedProviderDocMapping = require('./xsd/mappings/RequestedProviderDoc.js').RequestedProviderDoc;
+const requestedProviderDocMapping = require('./xsd/mappings/RequestedProviderDoc.js').RequestedProviderDoc;
 const responseMapping = require('./xsd/mappings/response.js').response;
 // tslint:enable:variable-name
 
@@ -47,12 +48,68 @@ export class AADEmyDataClient {
      * @returns {void}
      * @memberof AADEmyDataClient
      */
-    async sendInvoices(): Promise<void> {
+    async sendInvoices(invoices: AadeBookInvoiceType[]): Promise<SubmissionResponse> {
 
         try {
 
-            console.log('requestDocs');
-            return;
+            invoices = this.setIncomeClassificationNameSpace(invoices); // set n1:xxx for IncomeClassification namespace
+
+
+            const jsonData: xmlJS.ElementCompact = {
+                _declaration: {
+                    _attributes: {
+                        version: '1.0',
+                        encoding: 'utf-8',
+                    }
+                },
+
+
+                InvoicesDoc: {
+
+                    _attributes: {
+                        'xmlns': 'http://www.aade.gr/myDATA/invoice/v1.0',
+                        'xmlns:n1': 'https://www.aade.gr/myDATA/incomeClassificaton/v1.0',
+                        'xmlns:n2': 'https://www.aade.gr/myDATA/expensesClassificaton/v1.0'
+                    },
+
+                    invoice: invoices.map(inv => inv)
+                }
+            };
+
+
+            // Convert JSON data to XML
+            const xml = xmlJS.js2xml(jsonData, { compact: true, spaces: '\t' });
+
+
+            // Validate XML string with XSD Schema
+            const schemaValidateResponse = await this.validateXMLschema(xml, join(__dirname, '/xsd/InvoicesDoc-v1.0.2.xsd'));
+
+            if (!schemaValidateResponse.valid)
+                return Promise.reject({ message: `XSD Schema validation failed. Result is not valid.` });
+
+
+            const response = await axios.post(`${this.myDataApiUrl}/SendInvoices`, xml, {
+                headers: { ...this.requestHeaders }
+            });
+
+
+            const context = new Jsonix.Jsonix.Context([responseMapping]);
+            const unmarshaller = context.createUnmarshaller();
+
+            const jsonResponse = unmarshaller.unmarshalString(response.data);
+
+            let submissionResponse = new SubmissionResponse();
+
+            if (jsonResponse?.value?.response?.length > 0) {
+
+                if (jsonResponse.value.response[0].errors?.error?.length > 0)
+                    jsonResponse.value.response[0].errors = jsonResponse.value.response[0].errors.error;
+
+                submissionResponse = new SubmissionResponse(jsonResponse.value.response[0]);
+                return Promise.resolve(submissionResponse);
+            }
+
+            return Promise.resolve(submissionResponse);
 
         } catch (error) {
             return Promise.reject(error);
@@ -69,7 +126,7 @@ export class AADEmyDataClient {
      * @returns {Promise<Invoice[]>}
      * @memberof AADEmyDataClient
      */
-    async requestDocs(params: RequestDocsParams): Promise<Invoice[]> {
+    async requestDocs(params: RequestDocsParams): Promise<AadeBookInvoiceType[]> {
 
         try {
 
@@ -152,9 +209,40 @@ export class AADEmyDataClient {
      * @returns {void}
      * @memberof AADEmyDataClient
      */
-    cancelInvoice(): void {
-        console.log('cancelInvoice');
-        return;
+    async cancelInvoice(mark: string | number): Promise<SubmissionResponse> {
+        try {
+
+
+            const response = await axios.post(`${this.myDataApiUrl}/CancelInvoice`, {}, {
+                params: { mark: mark },
+                headers: { ...this.requestHeaders },
+            });
+
+
+            const context = new Jsonix.Jsonix.Context([responseMapping]);
+            const unmarshaller = context.createUnmarshaller();
+
+            const jsonResponse = unmarshaller.unmarshalString(response.data);
+
+            let submissionResponse = new SubmissionResponse();
+
+            if (jsonResponse?.value?.response?.length > 0) {
+
+                if (jsonResponse.value.response[0].errors?.error?.length > 0)
+                    jsonResponse.value.response[0].errors = jsonResponse.value.response[0].errors.error;
+
+                submissionResponse = new SubmissionResponse(jsonResponse.value.response[0]);
+                return Promise.resolve(submissionResponse);
+            }
+
+
+            return Promise.resolve(submissionResponse);
+
+
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(error);
+        }
     }
 
 
@@ -181,6 +269,43 @@ export class AADEmyDataClient {
             }
 
         });
+
+    }
+
+
+    private setIncomeClassificationNameSpace(invoices: AadeBookInvoiceType[]): AadeBookInvoiceType[] {
+
+        for (const invoice of invoices) {
+
+            // tslint:disable:forin
+            if (invoice?.invoiceDetails?.length > 0)
+                for (const row of invoice.invoiceDetails)
+                    Object.keys(row).forEach((key) => {
+
+                        if (key === 'incomeClassification')
+                            for (let ic = 0; ic < row[key].length; ic++)
+                                for (const icKey in row[key][ic]) {
+                                    row[key][ic][`n1:${icKey}`] = row[key][ic][icKey];
+                                    delete row[key][ic][icKey];
+                                }
+                    });
+
+
+
+            if (invoice?.invoiceSummary)
+                for (const key in invoice.invoiceSummary)
+                    if (key === 'incomeClassification')
+                        for (let ic = 0; ic < invoice.invoiceSummary[key].length; ic++)
+                            for (const icKey in invoice.invoiceSummary[key][ic]) {
+                                invoice.invoiceSummary[key][ic][`n1:${icKey}`] = invoice.invoiceSummary[key][ic][icKey];
+                                delete invoice.invoiceSummary[key][ic][icKey];
+                            }
+            // tslint:enable:forin
+
+        }
+
+
+        return invoices;
 
     }
 

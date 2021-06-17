@@ -1,40 +1,177 @@
-import { ExpensesClassification } from './ExpensesClassification';
-import { IncomeClassification } from './IncomeClassification';
-import { Ship } from './Ship';
+import { ExpensesClassificationType } from './ExpensesClassification';
+import { IncomeClassificationType } from './IncomeClassification';
+import { ShipType } from './Ship';
 
 
-export class InvoiceRow {
+export class InvoiceRowType {
+    /** ΑΑ γραμμής */
+    public lineNumber: number;
+
+    /** Ποσότητα */
+    public quantity?: number;
+
+    /**
+     * Είδος Ποσότητας
+     * 1 = Τεμάχια
+     * 2 = Κιλά
+     * 3 = Λίτρα
+     * */
     public measurementUnit?: number;
-    public invoiceDetail?: number;
-    public netValue: number;
-    public vatCategory: number;
-    public vatAmount: number;
-    public vatExemptionCategory?: number; // 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23;
-    public dienergia?: Ship;
-    public discountOption?: boolean;
-    public withheldAmount?: number;
-    public withheldPercentCategory?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
-    public stampDutyAmount?: number;
-    public stampDutyPercentCategory?: number;
-    public feesAmount?: number;
-    public feesPercentCategory?: number;
-    public otherTaxesPercentCategory?: number;
-    public otherTaxesAmount?: number;
-    public deductionsAmount?: number;
-    public incomeClassification?: IncomeClassification[];
-    public expensesClassification?: ExpensesClassification[];
 
-    public constructor(props?: InvoiceRow) {
+    /** Επισήμανση */
+    public invoiceDetail?: number;
+
+    /** Καθαρή αξία  */
+    public netValue: number;
+
+    /**
+     * Κατηγορία ΦΠΑ
+     ** 1 = ΦΠΑ συντελεστής 24% 24%
+     ** 2 = ΦΠΑ συντελεστής 13% 13%
+     ** 3 = ΦΠΑ συντελεστής 6% 6%
+     ** 4 = ΦΠΑ συντελεστής 17% 17%
+     ** 5 = ΦΠΑ συντελεστής 9% 9%
+     ** 6 = ΦΠΑ συντελεστής 4% 4%
+     ** 7 = Άνευ Φ.Π.Α. 0%
+     ** 8 = Εγγραφές χωρίς ΦΠΑ (πχ Μισθοδοσία, Αποσβέσεις) -
+     * */
+    public vatCategory: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8; // TODO: Explain
+
+    /** Ποσό ΦΠΑ */
+    public vatAmount: number;
+
+    /**
+     * Κατηγορία Αιτίας Εξαίρεσης ΦΠΑ
+     ** 1 = Χωρίς ΦΠΑ - άρθρο 3 του Κώδικα ΦΠΑ
+     ** 2 = Χωρίς ΦΠΑ - άρθρο 5 του Κώδικα ΦΠΑ
+     ** 3 = Χωρίς ΦΠΑ - άρθρο 13 του Κώδικα ΦΠΑ
+     ** 4 = Χωρίς ΦΠΑ - άρθρο 14 του Κώδικα ΦΠΑ
+     ** 5 = Χωρίς ΦΠΑ - άρθρο 16 του Κώδικα ΦΠΑ
+     ** 6 = Χωρίς ΦΠΑ - άρθρο 19 του Κώδικα ΦΠΑ
+     ** 7 = Χωρίς ΦΠΑ - άρθρο 22 του Κώδικα ΦΠΑ
+     ** 8 = Χωρίς ΦΠΑ - άρθρο 24 του Κώδικα ΦΠΑ
+     ** 9 = Χωρίς ΦΠΑ - άρθρο 25 του Κώδικα ΦΠΑ
+     ** 10 = Χωρίς ΦΠΑ - άρθρο 26 του Κώδικα ΦΠΑ
+     ** 11 = Χωρίς ΦΠΑ - άρθρο 27 του Κώδικα ΦΠΑ
+     ** 12 = Χωρίς ΦΠΑ - άρθρο 27 - Πλοία Ανοικτής Θαλάσσης του Κώδικα ΦΠΑ
+     ** 13 = Χωρίς ΦΠΑ - άρθρο 27.1.γ - Πλοία Ανοικτής Θαλάσσης του Κώδικα ΦΠΑ
+     ** 14 = Χωρίς ΦΠΑ - άρθρο 28 του Κώδικα ΦΠΑ
+     ** 15 = Χωρίς ΦΠΑ - άρθρο 39 του Κώδικα ΦΠΑ
+     ** 16 = Χωρίς ΦΠΑ - άρθρο 39α του Κώδικα ΦΠΑ
+     ** 17 = Χωρίς ΦΠΑ - άρθρο 40 του Κώδικα ΦΠΑ
+     ** 18 = Χωρίς ΦΠΑ - άρθρο 41 του Κώδικα ΦΠΑ
+     ** 19 = Χωρίς ΦΠΑ - άρθρο 47 του Κώδικα ΦΠΑ
+     ** 20 = ΦΠΑ εμπεριεχόμενος - άρθρο 43 του Κώδικα ΦΠΑ
+     ** 21 = ΦΠΑ εμπεριεχόμενος - άρθρο 44 του Κώδικα ΦΠΑ
+     ** 22 = ΦΠΑ εμπεριεχόμενος - άρθρο 45 του Κώδικα ΦΠΑ
+     ** 23 = ΦΠΑ εμπεριεχόμενος - άρθρο 46 του Κώδικα ΦΠΑ
+     *  */
+    public vatExemptionCategory?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23;
+
+    /** ΠΟΛ 1177/2018 Αρ. 27 */
+    public dienergia?: ShipType;
+
+    /** Δικαίωμα Έκπτωσης  */
+    public discountOption?: boolean;
+
+    /** Ποσό Παρακράτησης Φόρου */
+    public withheldAmount?: number;
+
+    /**
+     * Κατηγορία Συντελεστή Παρακράτησης Φόρου
+     ** 1 = Περιπτ. β’- Τόκοι - 15% (15%)
+     ** 2 = Περιπτ. γ’ - Δικαιώματα - 20% (20%)
+     ** 3 = Περιπτ. δ’ - Αμοιβές Συμβουλών Διοίκησης - 20% (20%)
+     ** 4 = Περιπτ. δ’ - Τεχνικά Έργα - 3% (3%)
+     ** 5 = Υγρά καύσιμα και προϊόντα καπνοβιομηχανίας 1% (1%)
+     ** 6 = Λοιπά Αγαθά 4% (4%)
+     ** 7 = Παροχή Υπηρεσιών 8% (8%)
+     ** 8 = Προκαταβλητέος Φόρος Αρχιτεκτόνων και Μηχανικών επί Συμβατικών Αμοιβών, για Εκπόνηση Μελετών και Σχεδίων 4% (4%)
+     ** 9 = Προκαταβλητέος Φόρος Αρχιτεκτόνων και Μηχανικών επί Συμβατικών Αμοιβών, που αφορούν οποιασδήποτε άλλης φύσης έργα 10% (10%)
+     ** 10 = Προκαταβλητέος Φόρος στις Αμοιβές Δικηγόρων 15% (15%)
+     ** 11 = Παρακράτηση Φόρου Μισθωτών Υπηρεσιών παρ. 1 αρ. 15 ν. 4172/2013 (ποσό)
+     ** 12 = Παρακράτηση Φόρου Μισθωτών Υπηρεσιών παρ. 2 αρ. 15 ν. 4172/2013 - Αξιωματικών Εμπορικού Ναυτικού (15%)
+     ** 13 = Παρακράτηση Φόρου Μισθωτών Υπηρεσιών παρ. 2 αρ. 15 ν. 4172/2013 - Κατώτερο Πλήρωμα Εμπορικού Ναυτικού (10%)
+     ** 14 = Παρακράτηση Ειδικής Εισφοράς Αλληλεγγύης (ποσό)
+     ** 15 = Παρακράτηση Φόρου Αποζημίωσης λόγω Διακοπής Σχέσης Εργασίας παρ. 3 αρ. 15 ν. 4172/2013 (ποσό)
+     * */
+    public withheldPercentCategory?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
+
+    /** Ποσό Χαρτοσήμου */
+    public stampDutyAmount?: number;
+
+    /**
+     * Κατηγορία Συντελεστή Χαρτοσήμου
+     ** 1 = Συντελεστής 1,2 % 1,20%
+     ** 2 = Συντελεστής 2,4 % 2,40%
+     ** 3 = Συντελεστής 3,6 % 3,60%
+     * */
+    public stampDutyPercentCategory?: 1 | 2 | 3;
+
+    /** Ποσό Τελών */
+    public feesAmount?: number;
+
+    /**
+     * Κατηγορία Συντελεστή Τελών
+     ** 1 = Για μηνιαίο λογαριασμό μέχρι και 50 ευρώ 12% (12,00%)
+     ** 2 = Για μηνιαίο λογαριασμό από 50,01 μέχρι και 100 ευρώ 15% (15,00%)
+     ** 3 = Για μηνιαίο λογαριασμό από 100,01 μέχρι και 150 ευρώ 18% (18,00%)
+     ** 4 = Για μηνιαίο λογαριασμό από 150,01 ευρώ και άνω 20% (20,00%)
+     ** 5 = Τέλος καρτοκινητής επί της αξίας του χρόνου ομιλίας (12%) (12,00%)
+     ** 6 = Τέλος στη συνδρομητική τηλεόραση 10% (10,00%)
+     ** 7 = Τέλος συνδρομητών σταθερής τηλεφωνίας 5% (5,00%)
+     ** 8 = Περιβαλλοντικό Τέλος & πλαστικής σακούλας ν. 2339/2001 αρ. 6α 0,07 ευρώ ανά τεμάχιο (ποσό)
+     ** 9 = Εισφορά δακοκτονίας 2% (2,00%)
+     * */
+    public feesPercentCategory?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+    /**
+     * Κατηγορία Συντελεστή Λοιπών Φόρων
+     ** 1 = α1) ασφάλιστρα κλάδου πυρός 20% (15%)
+     ** 2 = α2) ασφάλιστρα κλάδου πυρός 20% (5%)
+     ** 3 = β) ασφάλιστρα κλάδου ζωής 4% (4%)
+     ** 4 = γ) ασφάλιστρα λοιπών κλάδων 15%. (15%)
+     ** 5 = δ) απαλλασσόμενα φόρου ασφαλίστρων 0%. (0%)
+     ** 6 = Ξενοδοχεία 1-2 αστέρων 0,50 € (ποσό)
+     ** 7 = Ξενοδοχεία 3 αστέρων 1,50 € (ποσό)
+     ** 8 = Ξενοδοχεία 4 αστέρων 3,00 € (ποσό)
+     ** 9 = Ξενοδοχεία 4 αστέρων 4,00 € (ποσό)
+     ** 10 = Ενοικιαζόμενα - επιπλωμένα δωμάτια - διαμερίσματα 0,50 € (ποσό)
+     ** 11 = Ειδικός Φόρος στις διαφημίσεις που προβάλλονται από την τηλεόραση (ΕΦΤΔ) 5% (5%)
+     ** 12 = 3.1 Φόρος πολυτελείας 10% επί της φορολογητέας αξίας για τα ενδοκοινοτικώς αποκτούμενα και εισαγόμενα από τρίτες χώρες 10% (10%)
+     ** 13 = 3.2 Φόρος πολυτελείας 10% επί της τιμής πώλησης προ Φ.Π.Α. για τα εγχωρίως παραγόμενα είδη 10% (10%)
+     ** 14 = Δικαίωμα του Δημοσίου στα εισιτήρια των καζίνο (80% επί του εισιτηρίου) (80%)
+     * */
+    public otherTaxesPercentCategory?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
+
+    /** Ποσό Λοιπών Φόρων */
+    public otherTaxesAmount?: number;
+
+    /** Ποσό Κρατήσεων */
+    public deductionsAmount?: number;
+
+    /** Σχόλια Γραμμής */
+    public lineComments?: string;
+
+    /** Χαρακτηρισμοί Εσόδων */
+    public incomeClassification?: IncomeClassificationType[];
+
+    /** Χαρακτηρισμοί Εξόδων */
+    public expensesClassification?: ExpensesClassificationType[];
+
+
+    public constructor(props?: InvoiceRowType) {
 
         if (props) {
-
+            this.lineNumber = props.lineNumber;
+            this.quantity = props.quantity;
             this.measurementUnit = props.measurementUnit;
             this.invoiceDetail = props.invoiceDetail;
             this.netValue = props.netValue;
             this.vatCategory = props.vatCategory;
             this.vatAmount = props.vatAmount;
             this.vatExemptionCategory = props.vatExemptionCategory;
-            this.dienergia = (props.dienergia) ? new Ship(props.dienergia) : undefined;
+            this.dienergia = (props.dienergia) ? new ShipType(props.dienergia) : undefined;
             this.discountOption = props.discountOption;
             this.withheldAmount = props.withheldAmount;
             this.withheldPercentCategory = props.withheldPercentCategory;
