@@ -13,6 +13,9 @@ Node.js Client for AADE myDATA REST API
 
 
 ## Usage
+
+#### TypeScript
+
    ```ts
 import { AADEmyDataClient } from 'aade-mydata-client';
 
@@ -41,6 +44,32 @@ class YourClass {
 }
 ```
 
+#### CommonJS
+```js
+const AADEmyDataClient = require('aade-mydata-client').AADEmyDataClient;
+
+const myDataClient = new AADEmyDataClient({
+    userId: 'YOUR_USER_ID',
+    subscriptionKey: 'YOUR_SUBSCRIPTION_KEY',
+    livemode: false // true for production API requests
+});
+
+const main = async () => {
+
+    try {
+
+        const invoices = await myDataClient.requestDocs({ mark: 0 });
+        console.log(invoices);
+
+    } catch (error) {
+
+    }
+
+}
+
+main();
+
+```
 
 ## Methods
 
