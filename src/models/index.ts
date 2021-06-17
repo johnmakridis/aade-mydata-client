@@ -37,3 +37,6 @@ export interface RequestDocsParams {
     nextRowKey?: string;
 }
 
+
+
+export { AADEmyDataClient } from '../';
