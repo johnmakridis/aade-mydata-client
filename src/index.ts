@@ -45,7 +45,8 @@ export class AADEmyDataClient {
     /**
      * Διαδικασία υποβολής ενός ή περισσότερων παραστατικών, συμπεριλαμβανομένων και διορθωμένων/τροποποιητικών
      *
-     * @returns {void}
+     * @param {AadeBookInvoiceType[]} invoices
+     * @returns {Promise<SubmissionResponse>}
      * @memberof AADEmyDataClient
      */
     async sendInvoices(invoices: AadeBookInvoiceType[]): Promise<SubmissionResponse> {
@@ -184,7 +185,7 @@ export class AADEmyDataClient {
      * @memberof AADEmyDataClient
      */
     sendIncomeClassification(): void {
-        console.log('sendIncomeClassification');
+        console.log('TODO: sendIncomeClassification()');
         return;
     }
 
@@ -197,16 +198,18 @@ export class AADEmyDataClient {
      * @memberof AADEmyDataClient
      */
     sendExpensesClassification(): void {
-        console.log('sendExpensesClassification');
+        console.log('TODO: sendExpensesClassification()');
         return;
     }
+
 
 
 
     /**
      * Διαδικασία ακύρωσης παραστατικού, δίχως ταυτόχρονη υποβολή νέου
      *
-     * @returns {void}
+     * @param {(string | number)} mark
+     * @returns {Promise<SubmissionResponse>}
      * @memberof AADEmyDataClient
      */
     async cancelInvoice(mark: string | number): Promise<SubmissionResponse> {
