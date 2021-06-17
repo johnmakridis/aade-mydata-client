@@ -1,8 +1,7 @@
 {
   "name": "aade-mydata-client",
   "version": "1.1.2",
-  "private": false,
-  "description": "Node.js Client for AADE myData REST API (Greece)",
+  "description": "Node.js Client for AADE myDATA (my Digital Accounting and Tax Application) REST API",
   "main": "lib/index.js",
   "types": "lib/models/index.d.ts",
   "scripts": {
@@ -17,7 +16,6 @@
     "postversion": "git push && git push --tags"
   },
   "author": "John Makridis",
-  "license": "MIT",
   "keywords": [
     "AADE",
     "myData",
