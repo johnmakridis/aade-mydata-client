@@ -1,12 +1,14 @@
 # aade-mydata-client
-Node.js Client for AADE myDATA REST API
+Node.js Client for AADE myDATA (my Digital Accounting and Tax Application) REST API
 
 ## Features
 
-✅ &nbsp;&nbsp;HTTP requests to AADE myDATA REST API <br />
-✅ &nbsp;&nbsp;XML to JSON conversion (currently their API only supports XML data in responses)<br />
+✅ &nbsp;&nbsp;HTTP requests to AADE myDATA REST API through axios <br />
+✅ &nbsp;&nbsp;XML to JSON conversion (currently myData API only supports response data in XML. The client parses these data in JSON format.)<br />
+✅ &nbsp;&nbsp;JSON to XML conversion (The client parses your JSON data to XML for the request body.)<br />
 ✅ &nbsp;&nbsp;Javascript/Typescript support<br />
 ✅ &nbsp;&nbsp;Compatible with myDATA REST API v1.0.2<br />
+📝 &nbsp;&nbsp;TODO: Methods requestTransmittedDocs(), sendIncomeClassification(), sendExpensesClassification() are not yet ready<br />
 
 ## Installation
     npm install -S aade-mydata-client
