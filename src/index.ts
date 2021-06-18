@@ -1,7 +1,6 @@
 import { AADEmyDataClientConfig, QueryResponse, SubmissionResponse, AadeBookInvoiceType, RequestDocsParams } from './models';
 import axios, { AxiosError } from 'axios';
 import { join } from 'path';
-import * as xsdSchemaValidator from 'xsd-schema-validator';
 import * as xmlJS from 'xml-js';
 
 
@@ -82,13 +81,6 @@ export class AADEmyDataClient {
             const xml = xmlJS.js2xml(jsonData, { compact: true, spaces: '\t' });
 
 
-            // Validate XML string with XSD Schema
-            const schemaValidateResponse = await this.validateXMLschema(xml, join(__dirname, '/xsd/InvoicesDoc-v1.0.2.xsd'));
-
-            if (!schemaValidateResponse.valid)
-                return Promise.reject({ message: `XSD Schema validation failed. Result is not valid.` });
-
-
             const response = await axios.post(`${this.myDataApiUrl}/SendInvoices`, xml, {
                 headers: { ...this.requestHeaders }
             });
@@ -135,13 +127,6 @@ export class AADEmyDataClient {
                 params: params,
                 headers: { ...this.requestHeaders }
             });
-
-
-
-            const schemaValidateResponse = await this.validateXMLschema(response.data, join(__dirname, '/xsd/requestDoc-v1.0.2.xsd'));
-            if (!schemaValidateResponse.valid)
-                return Promise.reject({ message: `XSD Schema validation failed. Result is not valid.` });
-
 
 
             const context = new Jsonix.Jsonix.Context([requestDocMapping]);
@@ -253,28 +238,6 @@ export class AADEmyDataClient {
 
 
     // Utilities
-    async validateXMLschema(xmlString: string, xsdPath: string): Promise<{ valid: boolean, result: string, messages: any[] }> {
-
-        return new Promise((resolve, reject) => {
-
-            try {
-
-                xsdSchemaValidator.validateXML(xmlString, xsdPath, (error: any, result: any) => {
-                    if (error)
-                        return reject(error);
-
-                    return resolve(result);
-
-                });
-
-            } catch (error) {
-                return reject(error);
-            }
-
-        });
-
-    }
-
 
     private setIncomeClassificationNameSpace(invoices: AadeBookInvoiceType[]): AadeBookInvoiceType[] {
 

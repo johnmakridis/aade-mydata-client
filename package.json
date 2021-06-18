@@ -29,14 +29,12 @@
     "moment-timezone": "^0.5.33",
     "uuid": "^8.3.2",
     "xml-js": "^1.6.11",
-    "xml2js": "^0.4.23",
-    "xsd-schema-validator": "^0.7.0"
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@types/node": "^14.14.27",
     "@types/uuid": "^8.3.0",
     "@types/xml2js": "^0.4.8",
-    "@types/xsd-schema-validator": "^0.5.4",
     "shx": "^0.3.3",
     "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",
