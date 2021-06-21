@@ -97,8 +97,12 @@ export class AADEmyDataClient {
 
             if (jsonResponse?.value?.response?.length > 0) {
 
-                if (jsonResponse.value.response[0].errors?.error?.length > 0)
+                if (jsonResponse.value.response[0].errors?.error?.length > 0) {
                     jsonResponse.value.response[0].errors = jsonResponse.value.response[0].errors.error;
+
+                    submissionResponse = new SubmissionResponse(jsonResponse.value.response[0]);
+                    return Promise.reject(jsonResponse.value.response[0]);
+                }
 
                 submissionResponse = new SubmissionResponse(jsonResponse.value.response[0]);
                 return Promise.resolve(submissionResponse);
