@@ -78,7 +78,9 @@ export class AADEmyDataClient {
 
 
             // Convert JSON data to XML
-            const xml = xmlJS.js2xml(jsonData, { compact: true, spaces: '\t' });
+            let xml = xmlJS.js2xml(jsonData, { compact: true, spaces: '\t' });
+            xml = xml.split('n1:n1:').join('n1:');
+            xml = xml.split('n2:n2:').join('n2:');
 
 
             const response = await axios.post(`${this.myDataApiUrl}/SendInvoices`, xml, {
