@@ -1,6 +1,6 @@
 {
   "name": "aade-mydata-client",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Node.js Client for AADE myDATA (my Digital Accounting and Tax Application) REST API",
   "main": "lib/index.js",
   "types": "lib/models/index.d.ts",
