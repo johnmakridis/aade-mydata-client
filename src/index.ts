@@ -20,7 +20,7 @@ export class AADEmyDataClient {
 
     private config: AADEmyDataClientConfig;
     private myDataURLdev = 'https://mydata-dev.azure-api.net';
-    private myDataURLproduction = 'https://mydata-prod-apim.azure-api.net/myDATA';
+    private myDataURLproduction = 'https://mydatapi.aade.gr/myDATA'; // 'https://mydata-prod-apim.azure-api.net/myDATA';
 
     private myDataApiUrl: string = null; // for API calls
 
