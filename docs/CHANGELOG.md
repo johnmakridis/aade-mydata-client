@@ -31,8 +31,8 @@ Updated to the AADE myDATA REST API v2.0.1 schema, and closed out the long-stand
 - `cancelInvoice()` accepts an optional `entityVatNumber` (for third-party callers).
 - `rejectDeliveryNote()` accepts an `invoiceMark` as an alternative to `qrUrl`.
 - `src/xsd/` now keeps one subfolder per schema version (`v1.0.2/`, `v2.0.0/`, `v2.0.1/`) instead
-  of overwriting the previous version on upgrade — see `src/xsd/README.md`.
-- [`EXAMPLES.md`](./EXAMPLES.md): a runnable snippet for every method.
+  of overwriting the previous version on upgrade — see `docs/XSD.MD`.
+- [`docs/EXAMPLES.md`](./EXAMPLES.md): a runnable snippet for every method.
 
 ### Fixed
 

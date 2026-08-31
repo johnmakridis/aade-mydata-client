@@ -91,7 +91,7 @@ main();
 
 ```
 
-See [`EXAMPLES.md`](./EXAMPLES.md) for a runnable snippet of every method, including the
+See [`docs/EXAMPLES.md`](./docs/EXAMPLES.md) for a runnable snippet of every method, including the
 classification, VAT/E3 info, and delivery-note calls.
 
 ## Methods

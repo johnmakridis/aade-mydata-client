@@ -43,7 +43,7 @@ objects using generated Jsonix mappings. Published to npm as `aade-mydata-client
   `GetDeliveryStatusResponse`, `GenerateGroupQRCode(Response)`, `RequestGroupQRDetailsResponse`,
   `TransportTypes`).
 - `src/xsd/mappings/*.js` — Jsonix marshalling mappings generated from the **active** version's XSDs
-  only (`src/xsd/v2.0.1/`). These are checked-in generated code (see `src/xsd/README.md` for the exact
+  only (`src/xsd/v2.0.1/`). These are checked-in generated code (see `docs/XSD.MD` for the exact
   compiler commands, including a Java 11+ classpath workaround, used to regenerate them). Don't
   hand-edit these — regenerate from the XSD instead if the schema changes. When AADE ships a new
   version: copy the new XSDs into a new `src/xsd/vX.Y.Z/` folder (keep the old one), regenerate the
