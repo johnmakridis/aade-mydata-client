@@ -1,3 +1,3 @@
 import { generateTemplateClassesFromXSD } from 'xsd2ts';
 
-generateTemplateClassesFromXSD('../xsd/InvoicesDoc-v1.0.2.xsd');
+generateTemplateClassesFromXSD('../xsd/InvoicesDoc-v2.0.0.xsd');

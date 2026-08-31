@@ -16,7 +16,7 @@ export class AddressType {
     public constructor(props?: AddressType) {
 
         if (props) {
-            this.street = props.number;
+            this.street = props.street;
             this.number = props.number;
             this.postalCode = props.postalCode;
             this.city = props.city;

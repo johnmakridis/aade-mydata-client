@@ -1,3 +1,5 @@
+import { EntityType } from './EntityType';
+import { OtherDeliveryNoteHeaderType } from './OtherDeliveryNoteHeader';
 
 export class InvoiceHeaderType {
 
@@ -31,7 +33,15 @@ export class InvoiceHeaderType {
      ** 6.2 = Στοιχείο Ιδιοχρησιμοποίησης
      ** 7.1 = Συμβόλαιο - Έσοδο
      ** 8.1 = Ενοίκια - Έσοδο
-     ** 8.2 = Ειδικό Στοιχείο – Απόδειξης Είσπραξης Φόρου Διαμονής
+     ** 8.2 = Τέλος ανθεκτικότητας κλιματικής κρίσης
+     ** 8.4 = Απόδειξη Είσπραξης POS
+     ** 8.5 = Απόδειξη Επιστροφής POS
+     ** 8.6 = Δελτίο Παραγγελίας Εστίασης
+     ** 9.1 = Δελτίο Αποστολής Συσχετιζόμενο
+     ** 9.2 = Συγκεντρωτικό Δελτίο Αποστολής
+     ** 9.3 = Δελτίο Αποστολής
+     ** 10.1 = Δελτίο Ποσοτικής Παραλαβής Συσχετιζόμενο
+     ** 10.2 = Δελτίο Ποσοτικής Παραλαβής Μη Συσχετιζόμενο
      ** 11.1 = ΑΛΠ
      ** 11.2 = ΑΠΥ
      ** 11.3 = Απλοποιημένο Τιμολόγιο
@@ -81,6 +91,14 @@ export class InvoiceHeaderType {
         '7.1' |
         '8.1' |
         '8.2' |
+        '8.4' |
+        '8.5' |
+        '8.6' |
+        '9.1' |
+        '9.2' |
+        '9.3' |
+        '10.1' |
+        '10.2' |
         '11.1' |
         '11.2' |
         '11.3' |
@@ -134,8 +152,50 @@ export class InvoiceHeaderType {
     public vehicleNumber?: string;
 
 
-    /** Σκοπός Διακίνησης */
+    /** Σκοπός Διακίνησης (1-20, εξαιρουμένων των 6, 15, 16, 17, 18) */
     public movePurpose?: number;
+
+    /** Παραστατικό Καυσίμων */
+    public fuelInvoice?: boolean;
+
+    /** Ειδική Κατηγορία Παραστατικού */
+    public specialInvoiceCategory?: number;
+
+    /** Τύπος Απόκλισης Παραστατικού */
+    public invoiceVariationType?: number;
+
+    /** Λοιπές συσχετιζόμενες οντότητες (π.χ. μεταφορέας, παραγγελιοδόχος) */
+    public otherCorrelatedEntities?: EntityType[];
+
+    /** Λοιπά Γενικά Στοιχεία Διακίνησης */
+    public otherDeliveryNoteHeader?: OtherDeliveryNoteHeaderType;
+
+    /** Ένδειξη Παραστατικού Διακίνησης */
+    public isDeliveryNote?: boolean;
+
+    /** Τίτλος της Λοιπής Αιτίας Διακίνησης */
+    public otherMovePurposeTitle?: string;
+
+    /** Ένδειξη Είσπραξης Τρίτων */
+    public thirdPartyCollection?: boolean;
+
+    /** Πολλαπλά Συνδεόμενα MARKs */
+    public multipleConnectedMarks?: number[];
+
+    /** ΑΑ Τραπεζιού (για Δελτία Παραγγελίας Εστίασης) */
+    public tableAA?: string;
+
+    /** Ένδειξη συνολικής αναίρεσης Δελτίων Παραγγελίας */
+    public totalCancelDeliveryOrders?: boolean;
+
+    /** Αντίστροφη Διακίνηση */
+    public reverseDeliveryNote?: boolean;
+
+    /** Αιτία Έκδοσης Αντίστροφης Διακίνησης */
+    public reverseDeliveryNotePurpose?: number;
+
+    /** Ένδειξη Προς Ζύγιση */
+    public toWeigh?: boolean;
 
 
     public constructor(props?: InvoiceHeaderType) {
@@ -155,6 +215,20 @@ export class InvoiceHeaderType {
             this.dispatchTime = props.dispatchTime;
             this.vehicleNumber = props.vehicleNumber;
             this.movePurpose = props.movePurpose;
+            this.fuelInvoice = props.fuelInvoice;
+            this.specialInvoiceCategory = props.specialInvoiceCategory;
+            this.invoiceVariationType = props.invoiceVariationType;
+            this.otherCorrelatedEntities = props.otherCorrelatedEntities?.map(o => new EntityType(o));
+            this.otherDeliveryNoteHeader = (props.otherDeliveryNoteHeader) ? new OtherDeliveryNoteHeaderType(props.otherDeliveryNoteHeader) : undefined;
+            this.isDeliveryNote = props.isDeliveryNote;
+            this.otherMovePurposeTitle = props.otherMovePurposeTitle;
+            this.thirdPartyCollection = props.thirdPartyCollection;
+            this.multipleConnectedMarks = props.multipleConnectedMarks?.map(o => o);
+            this.tableAA = props.tableAA;
+            this.totalCancelDeliveryOrders = props.totalCancelDeliveryOrders;
+            this.reverseDeliveryNote = props.reverseDeliveryNote;
+            this.reverseDeliveryNotePurpose = props.reverseDeliveryNotePurpose;
+            this.toWeigh = props.toWeigh;
 
         }
 

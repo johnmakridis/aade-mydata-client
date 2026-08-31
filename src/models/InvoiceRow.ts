@@ -7,6 +7,27 @@ export class InvoiceRowType {
     /** ΑΑ γραμμής */
     public lineNumber: number;
 
+    /**
+     * Τύπος Εγγραφής
+     ** 1 = Κανονική
+     ** 2 = Ακυρωτική Δελτίου Αποστολής
+     ** 3 = Πίστωση Δελτίου Αποστολής
+     */
+    public recType?: number;
+
+    /** Κωδικός Taric */
+    // tslint:disable-next-line:variable-name
+    public TaricNo?: string;
+
+    /** Κωδικός Είδους */
+    public itemCode?: string;
+
+    /** Περιγραφή Είδους */
+    public itemDescr?: string;
+
+    /** Κωδικός Καυσίμου */
+    public fuelCode?: '10' | '11' | '12' | '13' | '14' | '15' | '20' | '21' | '30' | '31' | '32' | '33' | '34' | '35' | '36' | '37' | '38' | '40' | '41' | '42' | '43' | '44' | '50' | '60' | '61' | '70' | '71' | '72' | '999';
+
     /** Ποσότητα */
     public quantity?: number;
 
@@ -19,7 +40,7 @@ export class InvoiceRowType {
     public measurementUnit?: number;
 
     /** Επισήμανση */
-    public invoiceDetail?: number;
+    public invoiceDetailType?: number;
 
     /** Καθαρή αξία  */
     public netValue: number;
@@ -159,14 +180,37 @@ export class InvoiceRowType {
     /** Χαρακτηρισμοί Εξόδων */
     public expensesClassification?: ExpensesClassificationType[];
 
+    /** Ποσότητα Θερμοκρασίας 15 βαθμών */
+    public quantity15?: number;
+
+    /** Πλήθος Μονάδας Μέτρησης Τεμάχια Άλλα */
+    public otherMeasurementUnitQuantity?: number;
+
+    /** Τίτλος Μονάδας Μέτρησης Τεμάχια Άλλα */
+    public otherMeasurementUnitTitle?: string;
+
+    /** Ένδειξη μη συμμετοχής στο ΦΠΑ (έσοδα – εκροές) */
+    public notVAT195?: boolean;
+
+    /** Σκοπός Διακίνησης Γραμμής (1-20) */
+    public movePurposeLine?: number;
+
+    /** Τίτλος της Λοιπής Αιτίας Διακίνησης Γραμμής */
+    public otherMovePurposeLineTitle?: string;
+
 
     public constructor(props?: InvoiceRowType) {
 
         if (props) {
             this.lineNumber = props.lineNumber;
+            this.recType = props.recType;
+            this.TaricNo = props.TaricNo;
+            this.itemCode = props.itemCode;
+            this.itemDescr = props.itemDescr;
+            this.fuelCode = props.fuelCode;
             this.quantity = props.quantity;
             this.measurementUnit = props.measurementUnit;
-            this.invoiceDetail = props.invoiceDetail;
+            this.invoiceDetailType = props.invoiceDetailType;
             this.netValue = props.netValue;
             this.vatCategory = props.vatCategory;
             this.vatAmount = props.vatAmount;
@@ -184,6 +228,12 @@ export class InvoiceRowType {
             this.deductionsAmount = props.deductionsAmount;
             this.incomeClassification = props.incomeClassification?.map(o => o);
             this.expensesClassification = props.expensesClassification?.map(o => o);
+            this.quantity15 = props.quantity15;
+            this.otherMeasurementUnitQuantity = props.otherMeasurementUnitQuantity;
+            this.otherMeasurementUnitTitle = props.otherMeasurementUnitTitle;
+            this.notVAT195 = props.notVAT195;
+            this.movePurposeLine = props.movePurposeLine;
+            this.otherMovePurposeLineTitle = props.otherMovePurposeLineTitle;
         }
     }
 }

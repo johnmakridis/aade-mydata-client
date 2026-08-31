@@ -72,6 +72,21 @@ export class SubmissionResponse {
     /** Μοναδικός Αριθμός Ακύρωσης */
     public cancellationMark?: string;
 
+    /** Μοναδικός Αριθμός Καταχώρησης Τρόπου Πληρωμής (SendPaymentsMethod) */
+    public paymentMethodMark?: string;
+
+    /** Κωδικοποιημένο αλφαριθμητικό για τη δημιουργία QR Code τύπου Url (μόνο για παραστατικά τύπου 1.1 έως 11.5) */
+    public qrUrl?: string;
+
+    /** Μοναδικός Αριθμός Καταχώρησης Γεγονότος Μεταφοράς (RegisterTransfer) */
+    public transferMark?: number;
+
+    /** Μοναδικός Αριθμός Απόρριψης Διακίνησης (RejectDeliveryNote) */
+    public rejectMark?: number;
+
+    /** Μοναδικός Αριθμός Αποτελέσματος Παράδοσης Διακίνησης (ConfirmDeliveryOutcome) */
+    public deliveryOutcomeMark?: number;
+
     /** Λίστα Σφαλμάτων */
     public errors?: SubmissionError[];
 
@@ -86,6 +101,11 @@ export class SubmissionResponse {
             this.classificationMark = props.classificationMark || null;
             this.authenticationCode = props.authenticationCode || null;
             this.cancellationMark = props.cancellationMark || null;
+            this.paymentMethodMark = props.paymentMethodMark || null;
+            this.qrUrl = props.qrUrl || null;
+            this.transferMark = props.transferMark || null;
+            this.rejectMark = props.rejectMark || null;
+            this.deliveryOutcomeMark = props.deliveryOutcomeMark || null;
             this.errors = props.errors || [];
 
         }

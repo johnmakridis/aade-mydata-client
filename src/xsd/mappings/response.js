@@ -2,6 +2,21 @@ var response_Module_Factory = function () {
   var response = {
     name: 'response',
     typeInfos: [{
+        localName: 'ErrorType',
+        propertyInfos: [{
+            name: 'message',
+            required: true,
+            elementName: {
+              localPart: 'message'
+            }
+          }, {
+            name: 'code',
+            required: true,
+            elementName: {
+              localPart: 'code'
+            }
+          }]
+      }, {
         localName: 'ResponseDoc',
         typeName: null,
         propertyInfos: [{
@@ -12,6 +27,16 @@ var response_Module_Factory = function () {
               localPart: 'response'
             },
             typeInfo: '.ResponseType'
+          }]
+      }, {
+        localName: 'ProviderInfoType',
+        propertyInfos: [{
+            name: 'vatNumber',
+            minOccurs: 0,
+            collection: true,
+            elementName: {
+              localPart: 'VATNumber'
+            }
           }]
       }, {
         localName: 'ResponseType.Errors',
@@ -26,20 +51,15 @@ var response_Module_Factory = function () {
             typeInfo: '.ErrorType'
           }]
       }, {
-        localName: 'ErrorType',
+        localName: 'ReceptionEmailsType',
+        typeName: 'receptionEmailsType',
         propertyInfos: [{
-            name: 'message',
-            required: true,
+            name: 'email',
+            minOccurs: 0,
+            collection: true,
             elementName: {
-              localPart: 'message'
+              localPart: 'email'
             }
-          }, {
-            name: 'code',
-            required: true,
-            elementName: {
-              localPart: 'code'
-            },
-            typeInfo: 'Int'
           }]
       }, {
         localName: 'ResponseType',
@@ -73,10 +93,61 @@ var response_Module_Factory = function () {
             },
             typeInfo: 'Long'
           }, {
+            name: 'paymentMethodMark',
+            elementName: {
+              localPart: 'paymentMethodMark'
+            },
+            typeInfo: 'Long'
+          }, {
             name: 'authenticationCode',
             elementName: {
               localPart: 'authenticationCode'
             }
+          }, {
+            name: 'receptionProviders',
+            elementName: {
+              localPart: 'receptionProviders'
+            },
+            typeInfo: '.ReceptionProvidersType'
+          }, {
+            name: 'receptionEmails',
+            elementName: {
+              localPart: 'receptionEmails'
+            },
+            typeInfo: '.ReceptionEmailsType'
+          }, {
+            name: 'qrUrl',
+            elementName: {
+              localPart: 'qrUrl'
+            }
+          }, {
+            name: 'statementId',
+            elementName: {
+              localPart: 'statementId'
+            }
+          }, {
+            name: 'recallId',
+            elementName: {
+              localPart: 'recallId'
+            }
+          }, {
+            name: 'transferMark',
+            elementName: {
+              localPart: 'transferMark'
+            },
+            typeInfo: 'Long'
+          }, {
+            name: 'rejectMark',
+            elementName: {
+              localPart: 'rejectMark'
+            },
+            typeInfo: 'Long'
+          }, {
+            name: 'deliveryOutcomeMark',
+            elementName: {
+              localPart: 'deliveryOutcomeMark'
+            },
+            typeInfo: 'Long'
           }, {
             name: 'errors',
             required: true,
@@ -90,6 +161,18 @@ var response_Module_Factory = function () {
             elementName: {
               localPart: 'statusCode'
             }
+          }]
+      }, {
+        localName: 'ReceptionProvidersType',
+        typeName: 'receptionProvidersType',
+        propertyInfos: [{
+            name: 'providerInfo',
+            minOccurs: 0,
+            collection: true,
+            elementName: {
+              localPart: 'ProviderInfo'
+            },
+            typeInfo: '.ProviderInfoType'
           }]
       }],
     elementInfos: [{

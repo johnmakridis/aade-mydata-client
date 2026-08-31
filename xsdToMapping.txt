@@ -1,7 +1,0 @@
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar -d mappings -p expensesClassification src/xsd/expensesClassification-v1.0.2.xsd
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar -d mappings -p incomeClassification src/xsd/incomeClassification-v1.0.2.xsd
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar -d mappings -p InvoicesDoc src/xsd/InvoicesDoc-v1.0.2.xsd
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar -d mappings -p requestDoc src/xsd/requestDoc-v1.0.2.xsd
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar -d mappings -p requestedInvoicesDoc src/xsd/requestedInvoicesDoc-v1.0.2.xsd
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar -d mappings -p RequestedProviderDoc src/xsd/RequestedProviderDoc-v1.0.2.xsd
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar -d mappings -p response src/xsd/response-v1.0.2.xsd

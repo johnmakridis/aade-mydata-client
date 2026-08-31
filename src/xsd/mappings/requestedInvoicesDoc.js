@@ -3,57 +3,54 @@ var requestedInvoicesDoc_Module_Factory = function () {
     name: 'requestedInvoicesDoc',
     defaultElementNamespaceURI: 'http:\/\/www.aade.gr\/myDATA\/invoice\/v1.0',
     typeInfos: [{
-        localName: 'ExpensesClassificationType',
-        typeName: {
-          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0',
-          localPart: 'ExpensesClassificationType'
-        },
+        localName: 'OtherDeliveryNoteHeaderType',
         propertyInfos: [{
-            name: 'classificationType',
-            elementName: {
-              localPart: 'classificationType',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
-            }
-          }, {
-            name: 'classificationCategory',
-            elementName: {
-              localPart: 'classificationCategory',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
-            }
-          }, {
-            name: 'amount',
+            name: 'loadingAddress',
             required: true,
-            elementName: {
-              localPart: 'amount',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
-            },
-            typeInfo: 'Decimal'
+            typeInfo: '.AddressType'
           }, {
-            name: 'id',
-            elementName: {
-              localPart: 'id',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
-            },
-            typeInfo: 'Byte'
+            name: 'deliveryAddress',
+            required: true,
+            typeInfo: '.AddressType'
+          }, {
+            name: 'startShippingBranch',
+            typeInfo: 'Int'
+          }, {
+            name: 'completeShippingBranch',
+            typeInfo: 'Int'
           }]
       }, {
-        localName: 'RequestedDoc',
+        localName: 'IncomeClassificationsDoc',
         typeName: null,
         propertyInfos: [{
-            name: 'continuationToken',
-            typeInfo: '.ContinuationTokenType'
+            name: 'incomeInvoiceClassification',
+            required: true,
+            collection: true,
+            elementName: {
+              localPart: 'incomeInvoiceClassification',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
+            },
+            typeInfo: '.InvoiceIncomeClassificationType'
+          }]
+      }, {
+        localName: 'AadeBookInvoiceType.TaxesTotals',
+        typeName: null,
+        propertyInfos: [{
+            name: 'taxes',
+            required: true,
+            collection: true,
+            typeInfo: '.TaxTotalsType'
+          }]
+      }, {
+        localName: 'LocationType',
+        propertyInfos: [{
+            name: 'longitude',
+            required: true,
+            typeInfo: 'Decimal'
           }, {
-            name: 'invoicesDoc',
-            typeInfo: '.RequestedDoc.InvoicesDoc'
-          }, {
-            name: 'cancelledInvoicesDoc',
-            typeInfo: '.RequestedDoc.CancelledInvoicesDoc'
-          }, {
-            name: 'incomeClassificationsDoc',
-            typeInfo: '.RequestedDoc.IncomeClassificationsDoc'
-          }, {
-            name: 'expensesClassificationDoc',
-            typeInfo: '.RequestedDoc.ExpensesClassificationDoc'
+            name: 'latitude',
+            required: true,
+            typeInfo: 'Decimal'
           }]
       }, {
         localName: 'ExpensesClassificationsDoc',
@@ -69,28 +66,318 @@ var requestedInvoicesDoc_Module_Factory = function () {
             typeInfo: '.InvoiceExpensesClassificationType'
           }]
       }, {
-        localName: 'ShipType',
+        localName: 'PaymentMethodsDoc',
+        typeName: null,
         propertyInfos: [{
-            name: 'applicationId',
+            name: 'paymentMethods',
+            required: true,
+            collection: true,
+            elementName: {
+              localPart: 'paymentMethods',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/paymentMethod\/v1.0'
+            },
+            typeInfo: '.PaymentMethodType'
+          }]
+      }, {
+        localName: 'TaxTotalsType',
+        propertyInfos: [{
+            name: 'taxType',
+            required: true,
+            typeInfo: 'Byte'
+          }, {
+            name: 'taxCategory',
+            typeInfo: 'Int'
+          }, {
+            name: 'underlyingValue',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'taxAmount',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'id',
+            typeInfo: 'Byte'
+          }]
+      }, {
+        localName: 'TransportDetailType',
+        propertyInfos: [{
+            name: 'vehicleNumber',
             required: true
           }, {
-            name: 'applicationDate',
+            name: 'transportType',
             required: true,
-            typeInfo: 'Date'
+            typeInfo: 'Int'
           }, {
-            name: 'doy'
+            name: 'timeStamp',
+            typeInfo: 'DateTime'
           }, {
-            name: 'shipId',
+            name: 'carrierVatNumber',
+            required: true
+          }, {
+            name: 'pNumber'
+          }, {
+            name: 'location',
+            typeInfo: '.LocationType'
+          }]
+      }, {
+        localName: 'PackagingDetailType',
+        propertyInfos: [{
+            name: 'packagingType',
+            required: true,
+            typeInfo: 'Int'
+          }, {
+            name: 'quantity',
+            required: true,
+            typeInfo: 'Int'
+          }, {
+            name: 'otherPackagingTypeTitle'
+          }]
+      }, {
+        localName: 'PackingsDeclaration',
+        propertyInfos: [{
+            name: 'packages',
+            required: true,
+            collection: true,
+            elementName: 'Packages',
+            typeInfo: '.PackagingDetailType'
+          }]
+      }, {
+        localName: 'RequestedDoc.IncomeClassificationsDoc',
+        typeName: null,
+        propertyInfos: [{
+            name: 'incomeInvoiceClassification',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.InvoiceIncomeClassificationType'
+          }]
+      }, {
+        localName: 'AddressType',
+        propertyInfos: [{
+            name: 'street'
+          }, {
+            name: 'number'
+          }, {
+            name: 'postalCode',
+            required: true
+          }, {
+            name: 'city',
             required: true
           }]
       }, {
         localName: 'RequestedDoc.CancelledInvoicesDoc',
         typeName: null,
         propertyInfos: [{
-            name: 'cancelledinvoice',
+            name: 'cancelledInvoice',
             minOccurs: 0,
             collection: true,
             typeInfo: '.CancelledInvoiceType'
+          }]
+      }, {
+        localName: 'PaymentMethodType',
+        typeName: {
+          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/paymentMethod\/v1.0',
+          localPart: 'PaymentMethodType'
+        },
+        propertyInfos: [{
+            name: 'invoiceMark',
+            required: true,
+            elementName: {
+              localPart: 'invoiceMark',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/paymentMethod\/v1.0'
+            },
+            typeInfo: 'Long'
+          }, {
+            name: 'paymentMethodMark',
+            elementName: {
+              localPart: 'paymentMethodMark',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/paymentMethod\/v1.0'
+            },
+            typeInfo: 'Long'
+          }, {
+            name: 'entityVatNumber',
+            elementName: {
+              localPart: 'entityVatNumber',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/paymentMethod\/v1.0'
+            }
+          }, {
+            name: 'paymentMethodDetails',
+            required: true,
+            collection: true,
+            elementName: {
+              localPart: 'paymentMethodDetails',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/paymentMethod\/v1.0'
+            },
+            typeInfo: '.PaymentMethodDetailType'
+          }]
+      }, {
+        localName: 'CancelledInvoiceType',
+        propertyInfos: [{
+            name: 'invoiceMark',
+            required: true,
+            typeInfo: 'Long'
+          }, {
+            name: 'cancellationMark',
+            required: true,
+            typeInfo: 'Long'
+          }, {
+            name: 'cancellationDate',
+            required: true,
+            typeInfo: 'Date'
+          }]
+      }, {
+        localName: 'DeliveryEventType',
+        propertyInfos: [{
+            name: 'eventType',
+            required: true
+          }, {
+            name: 'eventTimestamp',
+            required: true,
+            typeInfo: 'DateTime'
+          }, {
+            name: 'actorVat',
+            required: true
+          }, {
+            name: 'mark',
+            typeInfo: 'Long'
+          }, {
+            name: 'transportDetails',
+            required: true,
+            typeInfo: '.TransportDetailType'
+          }, {
+            name: 'outcomeDetails',
+            required: true,
+            typeInfo: '.OutcomeDetailsType'
+          }, {
+            name: 'rejectionDetails',
+            required: true,
+            typeInfo: '.RejectionDetailsType'
+          }]
+      }, {
+        localName: 'InvoicesIncomeClassificationDetailType',
+        typeName: {
+          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0',
+          localPart: 'InvoicesIncomeClassificationDetailType'
+        },
+        propertyInfos: [{
+            name: 'lineNumber',
+            required: true,
+            elementName: {
+              localPart: 'lineNumber',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
+            },
+            typeInfo: 'Int'
+          }, {
+            name: 'incomeClassificationDetailData',
+            required: true,
+            collection: true,
+            elementName: {
+              localPart: 'incomeClassificationDetailData',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
+            },
+            typeInfo: '.IncomeClassificationType'
+          }]
+      }, {
+        localName: 'RequestedDoc.PaymentMethodsDoc',
+        typeName: null,
+        propertyInfos: [{
+            name: 'paymentMethods',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.PaymentMethodType'
+          }]
+      }, {
+        localName: 'RejectionDetailsType',
+        propertyInfos: [{
+            name: 'reason'
+          }]
+      }, {
+        localName: 'IncomeClassificationType',
+        typeName: {
+          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0',
+          localPart: 'IncomeClassificationType'
+        },
+        propertyInfos: [{
+            name: 'classificationType',
+            elementName: {
+              localPart: 'classificationType',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
+            }
+          }, {
+            name: 'classificationCategory',
+            required: true,
+            elementName: {
+              localPart: 'classificationCategory',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
+            }
+          }, {
+            name: 'amount',
+            required: true,
+            elementName: {
+              localPart: 'amount',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
+            },
+            typeInfo: 'Decimal'
+          }, {
+            name: 'id',
+            elementName: {
+              localPart: 'id',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
+            },
+            typeInfo: 'Byte'
+          }]
+      }, {
+        localName: 'InvoiceSummaryType',
+        propertyInfos: [{
+            name: 'totalNetValue',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'totalVatAmount',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'totalWithheldAmount',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'totalFeesAmount',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'totalStampDutyAmount',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'totalOtherTaxesAmount',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'totalDeductionsAmount',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'totalGrossValue',
+            required: true,
+            typeInfo: 'Decimal'
+          }, {
+            name: 'incomeClassification',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.IncomeClassificationType'
+          }, {
+            name: 'expensesClassification',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.ExpensesClassificationType'
+          }]
+      }, {
+        localName: 'RequestedDoc.ExpensesClassificationsDoc',
+        typeName: null,
+        propertyInfos: [{
+            name: 'expensesInvoiceClassification',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.InvoiceExpensesClassificationType'
           }]
       }, {
         localName: 'InvoiceIncomeClassificationType',
@@ -138,13 +425,119 @@ var requestedInvoicesDoc_Module_Factory = function () {
             typeInfo: '.InvoicesIncomeClassificationDetailType'
           }]
       }, {
-        localName: 'RequestedDoc.ExpensesClassificationDoc',
+        localName: 'InvoicesDoc',
         typeName: null,
         propertyInfos: [{
-            name: 'expensesInvoiceClassification',
+            name: 'invoice',
+            required: true,
+            collection: true,
+            typeInfo: '.AadeBookInvoiceType'
+          }]
+      }, {
+        localName: 'RequestedDoc',
+        typeName: null,
+        propertyInfos: [{
+            name: 'continuationToken',
+            typeInfo: '.ContinuationTokenType'
+          }, {
+            name: 'invoicesDoc',
+            typeInfo: '.RequestedDoc.InvoicesDoc'
+          }, {
+            name: 'cancelledInvoicesDoc',
+            typeInfo: '.RequestedDoc.CancelledInvoicesDoc'
+          }, {
+            name: 'incomeClassificationsDoc',
+            typeInfo: '.RequestedDoc.IncomeClassificationsDoc'
+          }, {
+            name: 'expensesClassificationsDoc',
+            typeInfo: '.RequestedDoc.ExpensesClassificationsDoc'
+          }, {
+            name: 'paymentMethodsDoc',
+            typeInfo: '.RequestedDoc.PaymentMethodsDoc'
+          }]
+      }, {
+        localName: 'ExpensesClassificationType',
+        typeName: {
+          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0',
+          localPart: 'ExpensesClassificationType'
+        },
+        propertyInfos: [{
+            name: 'classificationType',
+            elementName: {
+              localPart: 'classificationType',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            }
+          }, {
+            name: 'classificationCategory',
+            elementName: {
+              localPart: 'classificationCategory',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            }
+          }, {
+            name: 'amount',
+            required: true,
+            elementName: {
+              localPart: 'amount',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            },
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vatAmount',
+            elementName: {
+              localPart: 'vatAmount',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            },
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vatCategory',
+            elementName: {
+              localPart: 'vatCategory',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            },
+            typeInfo: 'Int'
+          }, {
+            name: 'vatExemptionCategory',
+            elementName: {
+              localPart: 'vatExemptionCategory',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            },
+            typeInfo: 'Int'
+          }, {
+            name: 'id',
+            elementName: {
+              localPart: 'id',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            },
+            typeInfo: 'Byte'
+          }]
+      }, {
+        localName: 'AadeBookInvoiceType.DeliveryLifecycle',
+        typeName: null,
+        propertyInfos: [{
+            name: 'deliveryEvents',
+            required: true,
+            collection: true,
+            typeInfo: '.DeliveryEventType'
+          }]
+      }, {
+        localName: 'RequestedDoc.InvoicesDoc',
+        typeName: null,
+        propertyInfos: [{
+            name: 'invoice',
             minOccurs: 0,
             collection: true,
-            typeInfo: '.InvoiceExpensesClassificationType'
+            typeInfo: '.AadeBookInvoiceType'
+          }]
+      }, {
+        localName: 'EntityType',
+        propertyInfos: [{
+            name: 'type',
+            required: true,
+            typeInfo: 'Int'
+          }, {
+            name: 'entityData',
+            required: true,
+            typeInfo: '.PartyType'
           }]
       }, {
         localName: 'InvoiceRowType',
@@ -155,6 +548,15 @@ var requestedInvoicesDoc_Module_Factory = function () {
           }, {
             name: 'recType',
             typeInfo: 'Int'
+          }, {
+            name: 'taricNo',
+            elementName: 'TaricNo'
+          }, {
+            name: 'itemCode'
+          }, {
+            name: 'itemDescr'
+          }, {
+            name: 'fuelCode'
           }, {
             name: 'quantity',
             typeInfo: 'Decimal'
@@ -224,42 +626,22 @@ var requestedInvoicesDoc_Module_Factory = function () {
             minOccurs: 0,
             collection: true,
             typeInfo: '.ExpensesClassificationType'
-          }]
-      }, {
-        localName: 'IncomeClassificationType',
-        typeName: {
-          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0',
-          localPart: 'IncomeClassificationType'
-        },
-        propertyInfos: [{
-            name: 'classificationType',
-            required: true,
-            elementName: {
-              localPart: 'classificationType',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
-            }
           }, {
-            name: 'classificationCategory',
-            required: true,
-            elementName: {
-              localPart: 'classificationCategory',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
-            }
-          }, {
-            name: 'amount',
-            required: true,
-            elementName: {
-              localPart: 'amount',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
-            },
+            name: 'quantity15',
             typeInfo: 'Decimal'
           }, {
-            name: 'id',
-            elementName: {
-              localPart: 'id',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
-            },
-            typeInfo: 'Byte'
+            name: 'otherMeasurementUnitQuantity',
+            typeInfo: 'Int'
+          }, {
+            name: 'otherMeasurementUnitTitle'
+          }, {
+            name: 'notVAT195',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'movePurposeLine',
+            typeInfo: 'Int'
+          }, {
+            name: 'otherMovePurposeLineTitle'
           }]
       }, {
         localName: 'InvoiceHeaderType',
@@ -303,6 +685,50 @@ var requestedInvoicesDoc_Module_Factory = function () {
           }, {
             name: 'movePurpose',
             typeInfo: 'Int'
+          }, {
+            name: 'fuelInvoice',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'specialInvoiceCategory',
+            typeInfo: 'Int'
+          }, {
+            name: 'invoiceVariationType',
+            typeInfo: 'Int'
+          }, {
+            name: 'otherCorrelatedEntities',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.EntityType'
+          }, {
+            name: 'otherDeliveryNoteHeader',
+            typeInfo: '.OtherDeliveryNoteHeaderType'
+          }, {
+            name: 'isDeliveryNote',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'otherMovePurposeTitle'
+          }, {
+            name: 'thirdPartyCollection',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'multipleConnectedMarks',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: 'Long'
+          }, {
+            name: 'tableAA'
+          }, {
+            name: 'totalCancelDeliveryOrders',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'reverseDeliveryNote',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'reverseDeliveryNotePurpose',
+            typeInfo: 'Int'
+          }, {
+            name: 'toWeigh',
+            typeInfo: 'Boolean'
           }]
       }, {
         localName: 'PaymentMethodDetailType',
@@ -316,39 +742,21 @@ var requestedInvoicesDoc_Module_Factory = function () {
             typeInfo: 'Decimal'
           }, {
             name: 'paymentMethodInfo'
-          }]
-      }, {
-        localName: 'InvoicesIncomeClassificationDetailType',
-        typeName: {
-          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0',
-          localPart: 'InvoicesIncomeClassificationDetailType'
-        },
-        propertyInfos: [{
-            name: 'lineNumber',
-            required: true,
-            elementName: {
-              localPart: 'lineNumber',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
-            },
-            typeInfo: 'Int'
           }, {
-            name: 'incomeClassificationDetailData',
-            required: true,
-            collection: true,
-            elementName: {
-              localPart: 'incomeClassificationDetailData',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
-            },
-            typeInfo: '.IncomeClassificationType'
-          }]
-      }, {
-        localName: 'RequestedDoc.InvoicesDoc',
-        typeName: null,
-        propertyInfos: [{
-            name: 'invoice',
-            minOccurs: 0,
-            collection: true,
-            typeInfo: '.AadeBookInvoiceType'
+            name: 'tipAmount',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'transactionId'
+          }, {
+            name: 'tid'
+          }, {
+            name: 'providersSignature',
+            elementName: 'ProvidersSignature',
+            typeInfo: '.ProviderSignatureType'
+          }, {
+            name: 'ecrToken',
+            elementName: 'ECRToken',
+            typeInfo: '.ECRTokenType'
           }]
       }, {
         localName: 'InvoicesExpensesClassificationDetailType',
@@ -375,123 +783,19 @@ var requestedInvoicesDoc_Module_Factory = function () {
             typeInfo: '.ExpensesClassificationType'
           }]
       }, {
-        localName: 'AadeBookInvoiceType.TaxesTotals',
-        typeName: null,
+        localName: 'ShipType',
         propertyInfos: [{
-            name: 'taxes',
-            required: true,
-            collection: true,
-            typeInfo: '.TaxTotalsType'
-          }]
-      }, {
-        localName: 'InvoiceSummaryType',
-        propertyInfos: [{
-            name: 'totalNetValue',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'totalVatAmount',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'totalWithheldAmount',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'totalFeesAmount',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'totalStampDutyAmount',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'totalOtherTaxesAmount',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'totalDeductionsAmount',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'totalGrossValue',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'incomeClassification',
-            minOccurs: 0,
-            collection: true,
-            typeInfo: '.IncomeClassificationType'
-          }, {
-            name: 'expensesClassification',
-            minOccurs: 0,
-            collection: true,
-            typeInfo: '.ExpensesClassificationType'
-          }]
-      }, {
-        localName: 'TaxTotalsType',
-        propertyInfos: [{
-            name: 'taxType',
-            required: true,
-            typeInfo: 'Byte'
-          }, {
-            name: 'taxCategory',
-            typeInfo: 'Byte'
-          }, {
-            name: 'underlyingValue',
-            typeInfo: 'Decimal'
-          }, {
-            name: 'taxAmount',
-            required: true,
-            typeInfo: 'Decimal'
-          }, {
-            name: 'id',
-            typeInfo: 'Byte'
-          }]
-      }, {
-        localName: 'IncomeClassificationsDoc',
-        typeName: null,
-        propertyInfos: [{
-            name: 'incomeInvoiceClassification',
-            required: true,
-            collection: true,
-            elementName: {
-              localPart: 'incomeInvoiceClassification',
-              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
-            },
-            typeInfo: '.InvoiceIncomeClassificationType'
-          }]
-      }, {
-        localName: 'AddressType',
-        propertyInfos: [{
-            name: 'street'
-          }, {
-            name: 'number'
-          }, {
-            name: 'postalCode',
+            name: 'applicationId',
             required: true
           }, {
-            name: 'city',
-            required: true
-          }]
-      }, {
-        localName: 'ContinuationTokenType',
-        typeName: 'continuationTokenType',
-        propertyInfos: [{
-            name: 'nextPartitionKey',
-            required: true
-          }, {
-            name: 'nextRowKey',
-            required: true
-          }]
-      }, {
-        localName: 'AadeBookInvoiceType.PaymentMethods',
-        typeName: null,
-        propertyInfos: [{
-            name: 'paymentMethodDetails',
+            name: 'applicationDate',
             required: true,
-            collection: true,
-            typeInfo: '.PaymentMethodDetailType'
+            typeInfo: 'Date'
+          }, {
+            name: 'doy'
+          }, {
+            name: 'shipId',
+            required: true
           }]
       }, {
         localName: 'InvoiceExpensesClassificationType',
@@ -537,39 +841,27 @@ var requestedInvoicesDoc_Module_Factory = function () {
               namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
             },
             typeInfo: '.InvoicesExpensesClassificationDetailType'
-          }]
-      }, {
-        localName: 'CancelledInvoiceType',
-        propertyInfos: [{
-            name: 'invoiceMark',
-            required: true,
-            typeInfo: 'Long'
           }, {
-            name: 'cancellationMark',
+            name: 'classificationPostMode',
+            elementName: {
+              localPart: 'classificationPostMode',
+              namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
+            },
+            typeInfo: 'Byte'
+          }]
+      }, {
+        localName: 'ProviderSignatureType',
+        propertyInfos: [{
+            name: 'signingAuthor',
             required: true,
-            typeInfo: 'Long'
+            elementName: 'SigningAuthor'
           }, {
-            name: 'cancellationDate',
+            name: 'signature',
             required: true,
-            typeInfo: 'Date'
-          }]
-      }, {
-        localName: 'InvoicesDoc',
-        typeName: null,
-        propertyInfos: [{
-            name: 'invoice',
-            required: true,
-            collection: true,
-            typeInfo: '.AadeBookInvoiceType'
-          }]
-      }, {
-        localName: 'RequestedDoc.IncomeClassificationsDoc',
-        typeName: null,
-        propertyInfos: [{
-            name: 'incomeInvoiceClassification',
-            minOccurs: 0,
-            collection: true,
-            typeInfo: '.InvoiceIncomeClassificationType'
+            elementName: 'Signature'
+          }, {
+            name: 'endToEndReferenceID',
+            elementName: 'EndToEndReferenceID'
           }]
       }, {
         localName: 'PartyType',
@@ -588,6 +880,12 @@ var requestedInvoicesDoc_Module_Factory = function () {
           }, {
             name: 'address',
             typeInfo: '.AddressType'
+          }, {
+            name: 'documentIdNo'
+          }, {
+            name: 'supplyAccountNo'
+          }, {
+            name: 'countryDocumentId'
           }]
       }, {
         localName: 'AadeBookInvoiceType',
@@ -629,15 +927,86 @@ var requestedInvoicesDoc_Module_Factory = function () {
             name: 'invoiceSummary',
             required: true,
             typeInfo: '.InvoiceSummaryType'
+          }, {
+            name: 'qrCodeUrl'
+          }, {
+            name: 'downloadingInvoiceUrl'
+          }, {
+            name: 'packingsDeclarations',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.PackingsDeclaration'
+          }, {
+            name: 'invoiceDeliveryStatus',
+            typeInfo: 'Byte'
+          }, {
+            name: 'deliveryLifecycle',
+            typeInfo: '.AadeBookInvoiceType.DeliveryLifecycle'
+          }]
+      }, {
+        localName: 'AadeBookInvoiceType.PaymentMethods',
+        typeName: null,
+        propertyInfos: [{
+            name: 'paymentMethodDetails',
+            required: true,
+            collection: true,
+            typeInfo: '.PaymentMethodDetailType'
+          }]
+      }, {
+        localName: 'ECRTokenType',
+        propertyInfos: [{
+            name: 'signingAuthor',
+            required: true,
+            elementName: 'SigningAuthor'
+          }, {
+            name: 'sessionNumber',
+            required: true,
+            elementName: 'SessionNumber'
+          }]
+      }, {
+        localName: 'OutcomeDetailsType',
+        propertyInfos: [{
+            name: 'outcome',
+            required: true
+          }, {
+            name: 'deliveredWithoutRecipient',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'deliveredPackaging',
+            minOccurs: 0,
+            collection: true,
+            typeInfo: '.PackagingDetailType'
+          }]
+      }, {
+        localName: 'ContinuationTokenType',
+        typeName: 'continuationTokenType',
+        propertyInfos: [{
+            name: 'nextPartitionKey',
+            required: true
+          }, {
+            name: 'nextRowKey',
+            required: true
           }]
       }, {
         type: 'enumInfo',
-        localName: 'IncomeClassificationValueType',
-        values: ['E3_106', 'E3_205', 'E3_210', 'E3_305', 'E3_310', 'E3_318', 'E3_561_001', 'E3_561_002', 'E3_561_003', 'E3_561_004', 'E3_561_005', 'E3_561_006', 'E3_561_007', 'E3_562', 'E3_563', 'E3_564', 'E3_565', 'E3_566', 'E3_567', 'E3_568', 'E3_570', 'E3_595', 'E3_596', 'E3_597', 'E3_880_001', 'E3_880_002', 'E3_880_003', 'E3_880_004', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004']
+        localName: 'ExpensesClassificationCategoryType',
+        values: ['category2_1', 'category2_2', 'category2_3', 'category2_4', 'category2_5', 'category2_6', 'category2_7', 'category2_8', 'category2_9', 'category2_10', 'category2_11', 'category2_12', 'category2_13', 'category2_14', 'category2_95']
       }, {
         type: 'enumInfo',
-        localName: 'CountryType',
-        values: ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AN', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'ST', 'SV', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW']
+        localName: 'ExpensesClassificationCategoryType',
+        values: ['category2_1', 'category2_2', 'category2_3', 'category2_4', 'category2_5', 'category2_6', 'category2_7', 'category2_8', 'category2_9', 'category2_10', 'category2_11', 'category2_12', 'category2_13', 'category2_14', 'category2_95']
+      }, {
+        type: 'enumInfo',
+        localName: 'IncomeClassificationValueType',
+        values: ['E3_106', 'E3_205', 'E3_210', 'E3_305', 'E3_310', 'E3_318', 'E3_561_001', 'E3_561_002', 'E3_561_003', 'E3_561_004', 'E3_561_005', 'E3_561_006', 'E3_561_007', 'E3_562', 'E3_563', 'E3_564', 'E3_565', 'E3_566', 'E3_567', 'E3_568', 'E3_570', 'E3_595', 'E3_596', 'E3_597', 'E3_880_001', 'E3_880_002', 'E3_880_003', 'E3_880_004', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004', 'E3_598_001', 'E3_598_003']
+      }, {
+        type: 'enumInfo',
+        localName: 'DeliveryOutcomeType',
+        values: ['FULL', 'PARTIAL', 'NONE']
+      }, {
+        type: 'enumInfo',
+        localName: 'IncomeClassificationCategoryType',
+        values: ['category1_1', 'category1_2', 'category1_3', 'category1_4', 'category1_5', 'category1_6', 'category1_7', 'category1_8', 'category1_9', 'category1_10', 'category1_95', 'category3']
       }, {
         type: 'enumInfo',
         localName: 'CurrencyType',
@@ -645,17 +1014,68 @@ var requestedInvoicesDoc_Module_Factory = function () {
       }, {
         type: 'enumInfo',
         localName: 'ExpensesClassificationValueType',
-        values: ['E3_101', 'E3_102_001', 'E3_102_002', 'E3_102_003', 'E3_102_004', 'E3_102_005', 'E3_102_006', 'E3_104', 'E3_201', 'E3_202_001', 'E3_202_002', 'E3_202_003', 'E3_202_004', 'E3_202_005', 'E3_204', 'E3_207', 'E3_209', 'E3_301', 'E3_302_001', 'E3_302_002', 'E3_302_003', 'E3_302_004', 'E3_302_005', 'E3_304', 'E3_307', 'E3_309', 'E3_312', 'E3_313_001', 'E3_313_002', 'E3_313_003', 'E3_313_004', 'E3_313_005', 'E3_315', 'E3_581_001', 'E3_581_002', 'E3_581_003', 'E3_582', 'E3_583', 'E3_584', 'E3_585_001', 'E3_585_002', 'E3_585_003', 'E3_585_004', 'E3_585_005', 'E3_585_006', 'E3_585_007', 'E3_585_008', 'E3_585_009', 'E3_585_010', 'E3_585_011', 'E3_585_012', 'E3_585_013', 'E3_585_014', 'E3_585_015', 'E3_585_016', 'E3_586', 'E3_587', 'E3_588', 'E3_589', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004', 'E3_882_001', 'E3_882_002', 'E3_882_003', 'E3_882_004', 'E3_883_001', 'E3_883_002', 'E3_883_003', 'E3_883_004', 'VAT_361', 'VAT_362', 'VAT_363', 'VAT_364', 'VAT_365', 'VAT_366']
+        values: ['E3_101', 'E3_102_001', 'E3_102_002', 'E3_102_003', 'E3_102_004', 'E3_102_005', 'E3_102_006', 'E3_104', 'E3_201', 'E3_202_001', 'E3_202_002', 'E3_202_003', 'E3_202_004', 'E3_202_005', 'E3_204', 'E3_207', 'E3_209', 'E3_301', 'E3_302_001', 'E3_302_002', 'E3_302_003', 'E3_302_004', 'E3_302_005', 'E3_304', 'E3_307', 'E3_309', 'E3_312', 'E3_313_001', 'E3_313_002', 'E3_313_003', 'E3_313_004', 'E3_313_005', 'E3_315', 'E3_581_001', 'E3_581_002', 'E3_581_003', 'E3_582', 'E3_583', 'E3_584', 'E3_585_001', 'E3_585_002', 'E3_585_003', 'E3_585_004', 'E3_585_005', 'E3_585_006', 'E3_585_007', 'E3_585_008', 'E3_585_009', 'E3_585_010', 'E3_585_011', 'E3_585_012', 'E3_585_013', 'E3_585_014', 'E3_585_015', 'E3_585_016', 'E3_586', 'E3_587', 'E3_588', 'E3_589', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004', 'E3_882_001', 'E3_882_002', 'E3_882_003', 'E3_882_004', 'E3_883_001', 'E3_883_002', 'E3_883_003', 'E3_883_004', 'VAT_361', 'VAT_362', 'VAT_363', 'VAT_364', 'VAT_365', 'VAT_366', 'E3_103', 'E3_203', 'E3_303', 'E3_208', 'E3_308', 'E3_314', 'E3_106', 'E3_205', 'E3_305', 'E3_210', 'E3_310', 'E3_318', 'E3_598_002', 'NOT_VAT_295']
+      }, {
+        type: 'enumInfo',
+        localName: 'ExpensesClassificationValueType',
+        values: ['E3_101', 'E3_102_001', 'E3_102_002', 'E3_102_003', 'E3_102_004', 'E3_102_005', 'E3_102_006', 'E3_104', 'E3_201', 'E3_202_001', 'E3_202_002', 'E3_202_003', 'E3_202_004', 'E3_202_005', 'E3_204', 'E3_207', 'E3_209', 'E3_301', 'E3_302_001', 'E3_302_002', 'E3_302_003', 'E3_302_004', 'E3_302_005', 'E3_304', 'E3_307', 'E3_309', 'E3_312', 'E3_313_001', 'E3_313_002', 'E3_313_003', 'E3_313_004', 'E3_313_005', 'E3_315', 'E3_581_001', 'E3_581_002', 'E3_581_003', 'E3_582', 'E3_583', 'E3_584', 'E3_585_001', 'E3_585_002', 'E3_585_003', 'E3_585_004', 'E3_585_005', 'E3_585_006', 'E3_585_007', 'E3_585_008', 'E3_585_009', 'E3_585_010', 'E3_585_011', 'E3_585_012', 'E3_585_013', 'E3_585_014', 'E3_585_015', 'E3_585_016', 'E3_586', 'E3_587', 'E3_588', 'E3_589', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004', 'E3_882_001', 'E3_882_002', 'E3_882_003', 'E3_882_004', 'E3_883_001', 'E3_883_002', 'E3_883_003', 'E3_883_004', 'VAT_361', 'VAT_362', 'VAT_363', 'VAT_364', 'VAT_365', 'VAT_366', 'E3_103', 'E3_203', 'E3_303', 'E3_208', 'E3_308', 'E3_314', 'E3_106', 'E3_205', 'E3_305', 'E3_210', 'E3_310', 'E3_318', 'E3_598_002', 'NOT_VAT_295']
+      }, {
+        type: 'enumInfo',
+        localName: 'IncomeClassificationValueType',
+        values: ['E3_106', 'E3_205', 'E3_210', 'E3_305', 'E3_310', 'E3_318', 'E3_561_001', 'E3_561_002', 'E3_561_003', 'E3_561_004', 'E3_561_005', 'E3_561_006', 'E3_561_007', 'E3_562', 'E3_563', 'E3_564', 'E3_565', 'E3_566', 'E3_567', 'E3_568', 'E3_570', 'E3_595', 'E3_596', 'E3_597', 'E3_880_001', 'E3_880_002', 'E3_880_003', 'E3_880_004', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004', 'E3_598_001', 'E3_598_003']
       }, {
         type: 'enumInfo',
         localName: 'IncomeClassificationCategoryType',
-        values: ['category1_1', 'category1_2', 'category1_3', 'category1_4', 'category1_5', 'category1_6', 'category1_7', 'category1_8', 'category1_9', 'category1_10', 'category1_95']
+        values: ['category1_1', 'category1_2', 'category1_3', 'category1_4', 'category1_5', 'category1_6', 'category1_7', 'category1_8', 'category1_9', 'category1_10', 'category1_95', 'category3']
       }, {
         type: 'enumInfo',
         localName: 'ExpensesClassificationCategoryType',
         values: ['category2_1', 'category2_2', 'category2_3', 'category2_4', 'category2_5', 'category2_6', 'category2_7', 'category2_8', 'category2_9', 'category2_10', 'category2_11', 'category2_12', 'category2_13', 'category2_14', 'category2_95']
+      }, {
+        type: 'enumInfo',
+        localName: 'ExpensesClassificationValueType',
+        values: ['E3_101', 'E3_102_001', 'E3_102_002', 'E3_102_003', 'E3_102_004', 'E3_102_005', 'E3_102_006', 'E3_104', 'E3_201', 'E3_202_001', 'E3_202_002', 'E3_202_003', 'E3_202_004', 'E3_202_005', 'E3_204', 'E3_207', 'E3_209', 'E3_301', 'E3_302_001', 'E3_302_002', 'E3_302_003', 'E3_302_004', 'E3_302_005', 'E3_304', 'E3_307', 'E3_309', 'E3_312', 'E3_313_001', 'E3_313_002', 'E3_313_003', 'E3_313_004', 'E3_313_005', 'E3_315', 'E3_581_001', 'E3_581_002', 'E3_581_003', 'E3_582', 'E3_583', 'E3_584', 'E3_585_001', 'E3_585_002', 'E3_585_003', 'E3_585_004', 'E3_585_005', 'E3_585_006', 'E3_585_007', 'E3_585_008', 'E3_585_009', 'E3_585_010', 'E3_585_011', 'E3_585_012', 'E3_585_013', 'E3_585_014', 'E3_585_015', 'E3_585_016', 'E3_586', 'E3_587', 'E3_588', 'E3_589', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004', 'E3_882_001', 'E3_882_002', 'E3_882_003', 'E3_882_004', 'E3_883_001', 'E3_883_002', 'E3_883_003', 'E3_883_004', 'VAT_361', 'VAT_362', 'VAT_363', 'VAT_364', 'VAT_365', 'VAT_366', 'E3_103', 'E3_203', 'E3_303', 'E3_208', 'E3_308', 'E3_314', 'E3_106', 'E3_205', 'E3_305', 'E3_210', 'E3_310', 'E3_318', 'E3_598_002', 'NOT_VAT_295']
+      }, {
+        type: 'enumInfo',
+        localName: 'CurrencyType',
+        values: ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHF', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EEK', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GWP', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SVC', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TVD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XCD', 'XOF', 'XPD', 'XPF', 'YER', 'ZAR', 'ZMK', 'ZWL']
+      }, {
+        type: 'enumInfo',
+        localName: 'CountryType',
+        values: ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AN', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OC', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'ST', 'SV', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW']
+      }, {
+        type: 'enumInfo',
+        localName: 'IncomeClassificationValueType',
+        values: ['E3_106', 'E3_205', 'E3_210', 'E3_305', 'E3_310', 'E3_318', 'E3_561_001', 'E3_561_002', 'E3_561_003', 'E3_561_004', 'E3_561_005', 'E3_561_006', 'E3_561_007', 'E3_562', 'E3_563', 'E3_564', 'E3_565', 'E3_566', 'E3_567', 'E3_568', 'E3_570', 'E3_595', 'E3_596', 'E3_597', 'E3_880_001', 'E3_880_002', 'E3_880_003', 'E3_880_004', 'E3_881_001', 'E3_881_002', 'E3_881_003', 'E3_881_004', 'E3_598_001', 'E3_598_003']
+      }, {
+        type: 'enumInfo',
+        localName: 'CountryType',
+        values: ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AN', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OC', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'ST', 'SV', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW']
+      }, {
+        type: 'enumInfo',
+        localName: 'DeliveryOutcomeType',
+        values: ['FULL', 'PARTIAL', 'NONE']
+      }, {
+        type: 'enumInfo',
+        localName: 'CurrencyType',
+        values: ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHF', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EEK', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GWP', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SVC', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TVD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XCD', 'XOF', 'XPD', 'XPF', 'YER', 'ZAR', 'ZMK', 'ZWL']
+      }, {
+        type: 'enumInfo',
+        localName: 'DeliveryOutcomeType',
+        values: ['FULL', 'PARTIAL', 'NONE']
+      }, {
+        type: 'enumInfo',
+        localName: 'CountryType',
+        values: ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AN', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OC', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'ST', 'SV', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW']
+      }, {
+        type: 'enumInfo',
+        localName: 'IncomeClassificationCategoryType',
+        values: ['category1_1', 'category1_2', 'category1_3', 'category1_4', 'category1_5', 'category1_6', 'category1_7', 'category1_8', 'category1_9', 'category1_10', 'category1_95', 'category3']
       }],
     elementInfos: [{
+        elementName: 'InvoicesDoc',
+        typeInfo: '.InvoicesDoc'
+      }, {
         elementName: {
           localPart: 'IncomeClassificationsDoc',
           namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/incomeClassificaton\/v1.0'
@@ -663,16 +1083,19 @@ var requestedInvoicesDoc_Module_Factory = function () {
         typeInfo: '.IncomeClassificationsDoc'
       }, {
         elementName: {
+          localPart: 'PaymentMethodsDoc',
+          namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/paymentMethod\/v1.0'
+        },
+        typeInfo: '.PaymentMethodsDoc'
+      }, {
+        elementName: 'RequestedDoc',
+        typeInfo: '.RequestedDoc'
+      }, {
+        elementName: {
           localPart: 'ExpensesClassificationsDoc',
           namespaceURI: 'https:\/\/www.aade.gr\/myDATA\/expensesClassificaton\/v1.0'
         },
         typeInfo: '.ExpensesClassificationsDoc'
-      }, {
-        elementName: 'InvoicesDoc',
-        typeInfo: '.InvoicesDoc'
-      }, {
-        elementName: 'RequestedDoc',
-        typeInfo: '.RequestedDoc'
       }]
   };
   return {

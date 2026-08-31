@@ -1,0 +1,204 @@
+var requestVatInfoResponse_Module_Factory = function () {
+  var requestVatInfoResponse = {
+    name: 'requestVatInfoResponse',
+    defaultElementNamespaceURI: 'http:\/\/www.aade.gr\/myDATA\/invoice\/v1.0',
+    typeInfos: [{
+        localName: 'ContinuationTokenType',
+        propertyInfos: [{
+            name: 'nextPartitionKey'
+          }, {
+            name: 'nextRowKey'
+          }]
+      }, {
+        localName: 'RequestedVatInfoType',
+        propertyInfos: [{
+            name: 'continuationToken',
+            typeInfo: '.ContinuationTokenType'
+          }, {
+            name: 'vatInfo',
+            minOccurs: 0,
+            collection: true,
+            elementName: 'VatInfo',
+            typeInfo: '.InvoiceVatDetailType'
+          }]
+      }, {
+        localName: 'InvoiceVatDetailType',
+        propertyInfos: [{
+            name: 'mark',
+            elementName: 'Mark'
+          }, {
+            name: 'isCancelled',
+            elementName: 'IsCancelled',
+            typeInfo: 'Boolean'
+          }, {
+            name: 'issueDate',
+            required: true,
+            elementName: 'IssueDate',
+            typeInfo: 'DateTime'
+          }, {
+            name: 'vat301',
+            elementName: 'Vat301',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat302',
+            elementName: 'Vat302',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat303',
+            elementName: 'Vat303',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat304',
+            elementName: 'Vat304',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat305',
+            elementName: 'Vat305',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat306',
+            elementName: 'Vat306',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat331',
+            elementName: 'Vat331',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat332',
+            elementName: 'Vat332',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat333',
+            elementName: 'Vat333',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat334',
+            elementName: 'Vat334',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat335',
+            elementName: 'Vat335',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat336',
+            elementName: 'Vat336',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat361',
+            elementName: 'Vat361',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat362',
+            elementName: 'Vat362',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat363',
+            elementName: 'Vat363',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat364',
+            elementName: 'Vat364',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat365',
+            elementName: 'Vat365',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat366',
+            elementName: 'Vat366',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat381',
+            elementName: 'Vat381',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat382',
+            elementName: 'Vat382',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat383',
+            elementName: 'Vat383',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat384',
+            elementName: 'Vat384',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat385',
+            elementName: 'Vat385',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat386',
+            elementName: 'Vat386',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat342',
+            elementName: 'Vat342',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat345',
+            elementName: 'Vat345',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat348',
+            elementName: 'Vat348',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat349',
+            elementName: 'Vat349',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat310',
+            elementName: 'Vat310',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat402',
+            elementName: 'Vat402',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat407',
+            elementName: 'Vat407',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat411',
+            elementName: 'Vat411',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat423',
+            elementName: 'Vat423',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vat422',
+            elementName: 'Vat422',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vatUnclassified361',
+            elementName: 'VatUnclassified361',
+            typeInfo: 'Decimal'
+          }, {
+            name: 'vatUnclassified381',
+            elementName: 'VatUnclassified381',
+            typeInfo: 'Decimal'
+          }]
+      }],
+    elementInfos: [{
+        elementName: 'RequestedVatInfo',
+        typeInfo: '.RequestedVatInfoType'
+      }]
+  };
+  return {
+    requestVatInfoResponse: requestVatInfoResponse
+  };
+};
+if (typeof define === 'function' && define.amd) {
+  define([], requestVatInfoResponse_Module_Factory);
+}
+else {
+  var requestVatInfoResponse_Module = requestVatInfoResponse_Module_Factory();
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports.requestVatInfoResponse = requestVatInfoResponse_Module.requestVatInfoResponse;
+  }
+  else {
+    var requestVatInfoResponse = requestVatInfoResponse_Module.requestVatInfoResponse;
+  }
+}
