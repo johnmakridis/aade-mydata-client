@@ -1,4 +1,9 @@
 # aade-mydata-client
+
+[![npm version](https://img.shields.io/npm/v/aade-mydata-client.svg)](https://www.npmjs.com/package/aade-mydata-client)
+[![license](https://img.shields.io/npm/l/aade-mydata-client.svg)](./LICENSE)
+[![CI](https://github.com/johnmakridis/aade-mydata-client/actions/workflows/ci.yml/badge.svg)](https://github.com/johnmakridis/aade-mydata-client/actions/workflows/ci.yml)
+
 Node.js Client for AADE myDATA (my Digital Accounting and Tax Application) REST API
 
 ## Features
